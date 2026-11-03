@@ -8,84 +8,98 @@ const OSI_LAYERS = [
         name: 'Application',
         acronym: 'L7',
         pdu: 'Data',
+        tcpip: 'Application',
         color: 'from-pink-500 to-rose-500',
         description: 'Provides network services directly to end-user applications. Handles protocols for file transfer, email, and web browsing.',
         assets: ['Web Browsers', 'Email Clients (Outlook, Thunderbird)', 'FTP Clients (FileZilla)', 'API Servers', 'DNS Clients', 'DHCP Clients'],
         encap: 'User data: HTTP, FTP, SMTP, DNS messages',
         decap: 'Delivers original payload to the requesting application',
-        protocols: ['HTTP', 'HTTPS', 'FTP', 'SMTP', 'DNS', 'SSH', 'SNMP']
+        protocols: ['HTTP', 'HTTPS', 'FTP', 'SMTP', 'DNS', 'SSH', 'SNMP'],
+        related: ['network-services', 'ports-protocols']
     },
     {
         id: 6,
         name: 'Presentation',
         acronym: 'L6',
         pdu: 'Data',
+        tcpip: 'Application',
         color: 'from-violet-500 to-purple-500',
         description: 'Translates data between the application layer and the network. Handles encryption, decryption, compression, and data format conversion.',
         assets: ['SSL/TLS Modules', 'JPEG/PNG Encoders', 'MPEG Codecs', 'ASCII/EBCDIC Converters', 'Encryption Engines (AES, RSA)', 'Compression (gzip, Brotli)'],
         encap: 'Encryption, compression, format translation',
         decap: 'Decryption, decompression, format conversion back to application format',
-        protocols: ['SSL', 'TLS', 'JPEG', 'MPEG', 'ASCII', 'EBCDIC', 'S/MIME']
+        protocols: ['SSL', 'TLS', 'JPEG', 'MPEG', 'ASCII', 'EBCDIC', 'S/MIME'],
+        related: ['security', 'network-services']
     },
     {
         id: 5,
         name: 'Session',
         acronym: 'L5',
         pdu: 'Data',
+        tcpip: 'Application',
         color: 'from-indigo-500 to-blue-500',
         description: 'Establishes, manages, and terminates connections (sessions) between applications. Controls dialogues and synchronization.',
         assets: ['NetBIOS Services', 'RPC (Remote Procedure Call)', 'SQL Connections', 'NFS (Network File System)', 'Session Managers', 'Checkpoint/Recovery Systems'],
         encap: 'Session identifiers, synchronization points, dialog control',
         decap: 'Session termination, checkpoint validation, dialog cleanup',
-        protocols: ['NetBIOS', 'RPC', 'SQL', 'PPTP', 'NFS', 'Sockets API']
+        protocols: ['NetBIOS', 'RPC', 'SQL', 'PPTP', 'NFS', 'Sockets API'],
+        related: ['osi-tcpip', 'ports-protocols']
     },
     {
         id: 4,
         name: 'Transport',
         acronym: 'L4',
         pdu: 'Segment',
+        tcpip: 'Transport',
         color: 'from-cyan-500 to-teal-500',
         description: 'Provides reliable end-to-end communication. Handles segmentation, reassembly, flow control, and error correction between end systems.',
         assets: ['TCP Stack', 'UDP Stack', 'Socket Libraries', 'Stateful Firewalls', 'Load Balancers', 'NAT Gateways'],
         encap: 'Source/Dest Port Numbers, Sequence Numbers, Checksum, Window Size',
         decap: 'Removes TCP/UDP header, reassembles segments in order, validates checksum',
-        protocols: ['TCP', 'UDP', 'SCTP', 'DCCP']
+        protocols: ['TCP', 'UDP', 'SCTP', 'DCCP'],
+        related: ['ports-protocols', 'qos']
     },
     {
         id: 3,
         name: 'Network',
         acronym: 'L3',
         pdu: 'Packet',
+        tcpip: 'Internet',
         color: 'from-emerald-500 to-green-500',
         description: 'Handles logical addressing and routing of data packets across different networks. Determines the best path for data delivery.',
         assets: ['Routers', 'IP Stacks', 'ICMP (Ping, Traceroute)', 'ARP Tables', 'NAT Devices', 'Firewalls (stateful)', 'CDN Edge Nodes'],
         encap: 'Source/Dest IP Addresses, TTL, Protocol Type, Fragmentation Info',
         decap: 'Removes IP header, validates TTL, routing/forwarding decision',
-        protocols: ['IPv4', 'IPv6', 'ICMP', 'IGMP', 'ARP', 'OSPF', 'BGP']
+        protocols: ['IPv4', 'IPv6', 'ICMP', 'IGMP', 'ARP', 'OSPF', 'BGP'],
+        related: ['ip-addressing', 'routing']
     },
     {
         id: 2,
         name: 'Data Link',
         acronym: 'L2',
         pdu: 'Frame',
+        tcpip: 'Network Access',
         color: 'from-amber-500 to-orange-500',
         description: 'Provides node-to-node data transfer on the same network segment. Handles physical addressing (MAC), error detection, and access control.',
         assets: ['Switches', 'Network Interface Cards (NICs)', 'Bridges', 'Hubs (Layer 2)', 'Access Points', 'VLAN Taggers'],
         encap: 'Source/Dest MAC Addresses, Frame Type (EtherType), FCS (Frame Check Sequence) trailer',
         decap: 'Removes MAC header & FCS trailer, validates destination MAC, error checking',
-        protocols: ['Ethernet (802.3)', 'Wi-Fi (802.11)', 'PPP', 'Frame Relay', 'HDLC', 'VLAN (802.1Q)']
+        protocols: ['Ethernet (802.3)', 'Wi-Fi (802.11)', 'PPP', 'Frame Relay', 'HDLC', 'VLAN (802.1Q)'],
+        related: ['switching-vlans', 'wireless', 'network-devices']
     },
     {
         id: 1,
         name: 'Physical',
         acronym: 'L1',
         pdu: 'Bits',
+        tcpip: 'Network Access',
         color: 'from-red-500 to-pink-500',
         description: 'Transmits raw bit streams over physical media. Defines electrical, mechanical, procedural, and functional specifications for hardware.',
         assets: ['Copper Cables (Cat5e/6/6a)', 'Fiber Optic Cables', 'Repeaters', 'Modems', 'Transceivers (SFP/SFP+)', 'RJ45 Connectors', 'Antennas', 'DSL Splitters'],
         encap: 'Converts bits to electrical/optical/radio signals, bit timing, voltage levels',
         decap: 'Converts electrical/optical/radio signals back to bits, clock recovery',
-        protocols: ['Ethernet PHY', 'USB', 'HDMI', 'V.34', 'SONET/SDH', 'Wi-Fi Radio']
+        protocols: ['Ethernet PHY', 'USB', 'HDMI', 'V.34', 'SONET/SDH', 'Wi-Fi Radio'],
+        related: ['cabling-media', 'topologies']
     }
 ];
 
@@ -143,7 +157,7 @@ function buildCardHTML(layer) {
                                 ${layer.name} Layer
                                 <span class="text-xs font-medium text-slate-500 ml-1">(${layer.acronym})</span>
                             </h3>
-                            <p class="text-xs text-slate-500">PDU: <span class="text-osi-cyan font-medium">${layer.pdu}</span></p>
+                            <p class="text-xs text-slate-500">PDU: <span class="text-osi-cyan font-medium">${layer.pdu}</span> · TCP/IP: <span class="text-osi-violet font-medium">${layer.tcpip}</span></p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-1 sm:gap-1.5 flex-shrink-0 ml-3">
@@ -211,16 +225,35 @@ function buildCardHTML(layer) {
                             </div>
                         `).join('')}
                     </div>
+                    ${buildRelatedHTML(layer)}
                 </div>
             </div>
 
             <!-- Expand toggle -->
-            <button class="w-full px-4 py-2.5 text-xs text-slate-500 hover:text-osi-cyan transition-colors flex items-center justify-center gap-1" id="expand-toggle">
+            <button class="w-full px-4 py-2.5 text-xs text-slate-500 hover:text-osi-cyan transition-colors flex items-center justify-center gap-1" id="expand-toggle"
+                    aria-expanded="${isExpanded}" aria-controls="expanded-content">
                 <span id="expand-label">${isExpanded ? 'Collapse' : 'Expand'} details</span>
                 <svg class="w-3.5 h-3.5 transition-transform ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="expand-icon">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                 </svg>
             </button>
+        </div>
+    `;
+}
+
+// Links into NetAtlas topic decks (topics.js); skipped if that data isn't loaded.
+function buildRelatedHTML(layer) {
+    const data = window.NetAtlasData;
+    if (!data || !layer.related) return '';
+    const topics = layer.related.map(id => data.TOPICS.find(t => t.id === id)).filter(Boolean);
+    if (!topics.length) return '';
+
+    return `
+        <h4 class="text-sm font-semibold text-white mt-5 mb-3">Related topics</h4>
+        <div class="flex flex-wrap gap-2">
+            ${topics.map(t => `
+                <a href="#/topic/${t.id}" class="px-3 py-1.5 rounded-lg bg-osi-cyan/10 border border-osi-cyan/20 text-xs font-medium text-osi-cyan hover:bg-osi-cyan/20 transition-colors">${t.title} →</a>
+            `).join('')}
         </div>
     `;
 }
@@ -308,9 +341,9 @@ function bindCardEvents() {
         });
     }
 
-    // Click card body to toggle expand (excluding arrows)
+    // Click card body to toggle expand (excluding arrows and links)
     card.addEventListener('click', (e) => {
-        if (e.target.closest('.arrow-btn')) return;
+        if (e.target.closest('.arrow-btn, a')) return;
         toggleExpand();
     });
 }
@@ -331,6 +364,7 @@ function toggleExpand() {
         label.textContent = 'Collapse details';
         icon.classList.add('rotate-180');
     }
+    document.getElementById('expand-toggle').setAttribute('aria-expanded', String(isExpanded));
 }
 
 // ============================================================
@@ -339,6 +373,10 @@ function toggleExpand() {
 
 document.addEventListener('keydown', (e) => {
     if (isAnimating) return;
+    // Only drive the carousel while it is on screen (home view), and not while typing.
+    const homeView = document.getElementById('view-home');
+    if (homeView && homeView.hidden) return;
+    if (e.target.closest && e.target.closest('input, textarea, select')) return;
 
     if (e.key === 'ArrowUp' && currentLayerId < 7) {
         transitionToLayer(currentLayerId + 1, 'up');

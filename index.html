@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OSI Flow | Interactive OSI Model</title>
+    <title>NetAtlas | Explore networking, one layer at a time</title>
     <meta name="author" content="CodeBox LLC">
-    <meta name="description" content="Interactive OSI Model visualization showing data flow, encapsulation, and network assets per layer.">
-   <meta name="keywords" content="OSI model, networking, interactive learning, network layers, CodeBox LLC">
-    <meta property="og:title" content="SI Flow | Interactive OSI Model" />
-    <meta property="og:description" content="Interactive OSI Model visualization showing data flow, encapsulation, and network assets per layer." />
+    <meta name="description" content="Interactive networking study app. Explore the OSI model with OSI Flow, then learn ports, IP addressing, routing, switching, wireless, security and more with flash cards.">
+   <meta name="keywords" content="OSI model, TCP/IP, networking, flash cards, subnetting, ports and protocols, interactive learning, CodeBox LLC">
+    <meta property="og:title" content="NetAtlas | Explore networking, one layer at a time" />
+    <meta property="og:description" content="Interactive networking study app. Explore the OSI model with OSI Flow, then learn ports, IP addressing, routing, switching, wireless, security and more with flash cards." />
     <meta property="og:image" content="https://raw.githubusercontent.com/dwilson-coder/osiflow/refs/heads/main/images/thumbnail.jpg" />
     <meta property="og:url" content="https://osiflow.netlify.app/" />
     <meta property="og:type" content="article" />
@@ -40,13 +40,15 @@
 </head>
 <body class="bg-osi-dark text-slate-200 min-h-screen">
 
+    <a href="#main-content" id="skip-link" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-osi-card focus:text-white focus:border focus:border-osi-cyan">Skip to content</a>
+
     <!-- Navbar -->
     <nav class="nav-blur fixed top-0 left-0 right-0 z-50 border-b border-osi-border/50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-3">
-                    <a href="#" class="flex items-center gap-3 group">
-                        <svg width="36" height="36" viewBox="0 0 64 64" class="group-hover:scale-110 transition-transform">
+                    <a href="#" class="flex items-center gap-3 group" aria-label="NetAtlas home">
+                        <svg width="36" height="36" viewBox="0 0 64 64" class="group-hover:scale-110 transition-transform" aria-hidden="true">
                             <defs>
                                 <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stop-color="#06b6d4"/>
@@ -59,48 +61,81 @@
                             <rect x="20" y="14" width="24" height="8" rx="2" fill="url(#logoGrad)" opacity="0.85"/>
                             <rect x="24" y="4" width="16" height="8" rx="2" fill="url(#logoGrad)"/>
                         </svg>
-                        <span class="text-xl font-bold gradient-text">OSI Flow</span>
+                        <span class="text-xl font-bold gradient-text">NetAtlas</span>
                     </a>
                 </div>
                 <div class="flex items-center gap-4">
-                    <a href="#model" class="text-sm text-slate-400 hover:text-osi-cyan transition-colors">Model</a>
+                    <a href="#topics" class="text-sm text-slate-400 hover:text-osi-cyan transition-colors">Topics</a>
+                    <a href="#model" class="text-sm text-slate-400 hover:text-osi-cyan transition-colors">OSI Flow</a>
                     <a href="#about" class="text-sm text-slate-400 hover:text-osi-cyan transition-colors">About</a>
                 </div>
             </div>
         </div>
     </nav>
 
+    <main id="main-content" tabindex="-1">
+
+    <!-- ===================== Home view ===================== -->
+    <div id="view-home">
+
     <!-- Hero -->
     <header class="pt-28 pb-8 px-4">
         <div class="max-w-4xl mx-auto text-center">
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-3">
-                <span class="gradient-text">OSI Flow</span>
+                <span class="gradient-text">NetAtlas</span>
             </h1>
-            <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto">
-                Navigate the OSI model. Use arrows to flow up or down, tap a card to expand.
+            <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-2">
+                Explore networking, one layer at a time.
+            </p>
+            <p class="text-sm text-slate-500 max-w-2xl mx-auto">
+                Start with the OSI Flow explorer, then work through the <a href="#topics" class="text-osi-cyan hover:underline">topic decks</a>: flash cards, quick-reference tables, and progress saved in your browser.
             </p>
         </div>
     </header>
 
-    <!-- Progress Numbers -->
-    <div id="progress-dots" class="flex items-center justify-center gap-2 sm:gap-3 mb-6 px-4">
-    </div>
-
-    <!-- Single Card Viewport -->
-    <main id="model" class="max-w-2xl mx-auto px-4 pb-16">
-        <div id="card-viewport" class="relative min-h-[400px] sm:min-h-[350px]">
+    <!-- OSI Flow -->
+    <section aria-labelledby="osi-flow-heading">
+        <div class="text-center px-4 mb-6">
+            <h2 id="osi-flow-heading" class="text-xl sm:text-2xl font-bold gradient-text mb-2">OSI Flow</h2>
+            <p class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+                Navigate the OSI model. Use arrows to flow up or down, tap a card to expand.
+            </p>
         </div>
 
-        <!-- Layer Counter -->
-        <div class="text-center mt-6">
-            <span id="layer-counter" class="text-sm text-slate-500 font-medium">Layer 7 of 7</span>
+        <!-- Progress Numbers -->
+        <div id="progress-dots" class="flex items-center justify-center gap-2 sm:gap-3 mb-6 px-4">
         </div>
-    </main>
+
+        <!-- Single Card Viewport -->
+        <div id="model" class="max-w-2xl mx-auto px-4 pb-16" tabindex="-1">
+            <div id="card-viewport" class="relative min-h-[400px] sm:min-h-[350px]">
+            </div>
+
+            <!-- Layer Counter -->
+            <div class="text-center mt-6">
+                <span id="layer-counter" class="text-sm text-slate-500 font-medium">Layer 7 of 7</span>
+            </div>
+            <div class="text-center mt-3">
+                <a href="#/topic/osi-tcpip" class="text-sm font-medium text-osi-cyan hover:underline">Study the OSI &amp; TCP/IP flash cards →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topic Dashboard (rendered by js/app.js) -->
+    <section id="topics" aria-labelledby="topics-heading" class="max-w-6xl mx-auto px-4 pb-16" tabindex="-1">
+        <div id="topic-dashboard"></div>
+    </section>
 
     <!-- About Section -->
-    <section id="about" class="max-w-4xl mx-auto px-4 pb-20">
+    <section id="about" class="max-w-4xl mx-auto px-4 pb-20" tabindex="-1">
         <div class="bg-osi-card rounded-2xl border border-osi-border p-6 sm:p-8">
-            <h2 class="text-xl sm:text-2xl font-bold mb-4 gradient-text">About OSI Flow</h2>
+            <h2 class="text-xl sm:text-2xl font-bold mb-4 gradient-text">About NetAtlas</h2>
+            <p class="text-slate-400 leading-relaxed mb-4">
+                NetAtlas grew out of <strong class="text-slate-300">OSI Flow</strong>, an interactive OSI model explorer.
+                It keeps that explorer at its core and adds topic decks covering ports, addressing, cabling, routing,
+                switching, wireless, services, security, troubleshooting, QoS, WAN/VPN, and automation. Progress is
+                saved locally in your browser. There are no accounts and nothing is sent to a server.
+            </p>
             <p class="text-slate-400 leading-relaxed mb-4">
                 The OSI (Open Systems Interconnect) model is a conceptual framework that standardizes the functions of a
                 communication system into seven abstraction layers. Each layer provides services to the layer above and
@@ -113,6 +148,13 @@
             </p>
         </div>
     </section>
+
+    </div>
+
+    <!-- ===================== Topic view (rendered by js/app.js) ===================== -->
+    <div id="view-topic" hidden></div>
+
+    </main>
 
     <!-- Footer -->
     <footer class="border-t border-osi-border/50 py-10 px-4">
@@ -132,7 +174,7 @@
                         <rect x="20" y="14" width="24" height="8" rx="2" fill="url(#footerGrad)" opacity="0.85"/>
                         <rect x="24" y="4" width="16" height="8" rx="2" fill="url(#footerGrad)"/>
                     </svg>
-                    <span class="font-semibold text-slate-300 text-sm">OSI Flow</span>
+                    <span class="font-semibold text-slate-300 text-sm">NetAtlas</span>
                     <span class="text-slate-600">|</span>
                     <span class="text-xs text-slate-500">Created by <a href="https://codeboxllc.net/" target="_blank" class="text-osi-cyan hover:underline">CodeBox LLC</a></span>
                 </div>
@@ -153,6 +195,9 @@
             </div>
         </div>
     </footer>
+    <script src="js/topics.js"></script>
+    <script src="js/netatlas-core.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>   
